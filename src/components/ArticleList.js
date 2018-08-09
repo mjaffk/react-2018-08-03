@@ -1,11 +1,13 @@
 import * as React from "react";
 import Select from "react-select";
 import { Article } from "./Article";
+import DatePicker from "react-date-picker";
 
 export default class ArticleList extends React.Component {
   state = {
     openArticleId: null,
-    inputValue: ""
+    inputValue: "",
+    date: new Date()
   };
 
   render() {
@@ -14,6 +16,9 @@ export default class ArticleList extends React.Component {
       <div>
         UserName:{" "}
         <input value={this.state.inputValue} onChange={this.onChangeInput} />
+        <div>
+          <DatePicker onChange={this.onChange} value={this.state.date} />
+        </div>
         <Select
           value={{
             value: articles[0].id,
@@ -44,6 +49,8 @@ export default class ArticleList extends React.Component {
       inputValue: event.target.value
     });
   };
+
+  onChange = date => this.setState({ date });
 
   toggleVisibility = id => {
     this.setState({
