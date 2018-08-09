@@ -20,10 +20,7 @@ export default class ArticleList extends React.Component {
           <DatePicker onChange={this.onChange} value={this.state.date} />
         </div>
         <Select
-          value={{
-            value: articles[0].id,
-            label: articles[0].title
-          }}
+          isMulti
           options={articles.map(article => ({
             value: article.id,
             label: article.title
