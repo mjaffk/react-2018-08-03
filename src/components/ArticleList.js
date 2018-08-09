@@ -13,7 +13,7 @@ export default class ArticleList extends React.Component {
     return (
       <div>
         UserName:{" "}
-        <input value={this.state.inputValue} onChange={this.onChange} />
+        <input value={this.state.inputValue} onChange={this.onChangeInput} />
         <Select
           value={{
             value: articles[0].id,
@@ -38,7 +38,7 @@ export default class ArticleList extends React.Component {
     );
   }
 
-  onChange = event => {
+  onChangeInput = event => {
     console.log(event.target.value);
     this.setState({
       inputValue: event.target.value
@@ -47,7 +47,7 @@ export default class ArticleList extends React.Component {
 
   toggleVisibility = id => {
     this.setState({
-      openArticleId: id
+      openArticleId: this.state.openArticleId === id ? null : id
     });
   };
 }

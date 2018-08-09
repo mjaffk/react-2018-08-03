@@ -7,7 +7,7 @@ export class Article extends React.PureComponent {
     return (
       <li>
         {article.title}
-        <button onClick={this.handleClick}>close</button>
+        <button onClick={this.handleClick}>{isOpen ? "close" : "open"}</button>
         {isOpen ? <p>{article.text}</p> : null}
       </li>
     );
