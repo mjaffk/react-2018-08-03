@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ArticleList from './components/article-list'
-import Chart from './components/chart'
 import UserForm from './components/user-form'
 import Filters from './components/filters/index'
 
@@ -12,7 +11,6 @@ class App extends Component {
         <UserForm />
         <Filters articles={articles} />
         <ArticleList articles={articles} />
-        <Chart articles={articles} />
       </div>
     )
   }

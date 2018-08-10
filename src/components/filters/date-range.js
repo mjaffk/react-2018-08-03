@@ -9,9 +9,6 @@ class DateRange extends Component {
     to: null
   }
 
-  handleDayClick = (day) =>
-    this.setState(DateUtils.addDayToRange(day, this.state))
-
   render() {
     const { from, to } = this.state
     const selectedRange =
@@ -26,6 +23,9 @@ class DateRange extends Component {
       </div>
     )
   }
+
+  handleDayClick = (day) =>
+    this.setState(DateUtils.addDayToRange(day, this.state))
 }
 
 export default DateRange

@@ -2,7 +2,7 @@ import React from 'react'
 import Article from './article'
 import accordion from '../decorators/accordion'
 
-function ArticleList(props) {
+const ArticleList = (props) => {
   const articleElements = props.articles.map((article) => (
     <li key={article.id}>
       <Article

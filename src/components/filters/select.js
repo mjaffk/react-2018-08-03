@@ -6,15 +6,6 @@ class SelectFilter extends Component {
     selected: null
   }
 
-  handleChange = (selected) => this.setState({ selected })
-
-  get options() {
-    return this.props.articles.map((article) => ({
-      label: article.title,
-      value: article.id
-    }))
-  }
-
   render() {
     return (
       <Select
@@ -24,6 +15,15 @@ class SelectFilter extends Component {
         isMulti
       />
     )
+  }
+
+  handleChange = (selected) => this.setState({ selected })
+
+  get options() {
+    return this.props.articles.map((article) => ({
+      label: article.title,
+      value: article.id
+    }))
   }
 }
 
