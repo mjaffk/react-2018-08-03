@@ -1,16 +1,21 @@
-import React, { Component } from "react";
-import "./App.css";
-import ArticleList from "./components/ArticleList";
-import articles from "./fixtures";
+import React, { Component } from 'react'
+import ArticleList from './components/article-list'
+import Chart from './components/chart'
+import UserForm from './components/user-form'
+import Filters from './components/filters/index'
 
 class App extends Component {
   render() {
+    const { articles } = this.props
     return (
-      <div className="App">
+      <div>
+        <UserForm />
+        <Filters articles={articles} />
         <ArticleList articles={articles} />
+        <Chart articles={articles} />
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

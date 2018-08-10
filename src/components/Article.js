@@ -1,19 +1,31 @@
-import * as React from "react";
+import React, { PureComponent } from 'react'
+import CommentList from './comment-list'
 
-export class Article extends React.PureComponent {
+class Article extends PureComponent {
   render() {
-    console.log("R");
-    const { article, isOpen } = this.props;
+    const { article, isOpen } = this.props
     return (
-      <li>
-        {article.title}
-        <button onClick={this.handleClick}>close</button>
-        {isOpen ? <p>{article.text}</p> : null}
-      </li>
-    );
+      <div>
+        <h2>{article.title}</h2>
+        <button onClick={this.toggleOpen}>{isOpen ? 'close' : 'open'}</button>
+        {this.getBody()}
+      </div>
+    )
   }
 
-  handleClick = () => {
-    this.props.toggleVisibility(this.props.article.id);
-  };
+  getBody() {
+    const { article, isOpen } = this.props
+    if (!isOpen) return null
+
+    return (
+      <section>
+        {article.text}
+        <CommentList comments={article.comments} />
+      </section>
+    )
+  }
+
+  toggleOpen = () => this.props.toggleOpen(this.props.article.id)
 }
+
+export default Article
