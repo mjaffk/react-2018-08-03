@@ -1,14 +1,17 @@
 import React from 'react'
-import Article from './article'
-import accordion from '../decorators/accordion'
+import Article from '../article'
+import accordion from '../../decorators/accordion'
 
 const ArticleList = (props) => {
-  const articleElements = props.articles.map((article) => (
-    <li key={article.id}>
+  props.fetchData && props.fetchData()
+
+  const articleElements = props.articles.map((article, index) => (
+    <li key={article.id} className={'article-container'}>
       <Article
         article={article}
         isOpen={article.id === props.openItemId}
         toggleOpen={props.toggleOpenItem}
+        index={index}
       />
     </li>
   ))

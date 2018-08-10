@@ -3,11 +3,13 @@ import CommentList from './comment-list'
 
 class Article extends PureComponent {
   render() {
-    const { article, isOpen } = this.props
+    const { article, isOpen, index } = this.props
     return (
-      <div>
+      <div className={'article'}>
         <h2>{article.title}</h2>
-        <button onClick={this.toggleOpen}>{isOpen ? 'close' : 'open'}</button>
+        <button className={`open-article-${index}`} onClick={this.toggleOpen}>
+          {isOpen ? 'close' : 'open'}
+        </button>
         {this.getBody()}
       </div>
     )

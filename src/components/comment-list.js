@@ -9,7 +9,9 @@ class CommentList extends Component {
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
       <div>
-        <button onClick={toggleOpen}>{text}</button>
+        <button data-automation-id="open-comments" onClick={toggleOpen}>
+          {text}
+        </button>
         {this.getBody()}
       </div>
     )
