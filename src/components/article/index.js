@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import CommentList from './comment-list'
+import CommentList from '../comment-list/index'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './article.css'
 
@@ -14,8 +14,8 @@ class Article extends PureComponent {
         </button>
         <ReactCSSTransitionGroup
           transitionName="example"
-          transitionEnterTimeout={5000}
-          transitionLeaveTimeout={5000}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}
         >
           {this.getBody()}
         </ReactCSSTransitionGroup>
