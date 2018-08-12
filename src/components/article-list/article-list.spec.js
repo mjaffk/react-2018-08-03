@@ -29,4 +29,13 @@ describe('ArticleList', function() {
       />
     )
   })
+
+  it('should open all article', function() {
+    const wrapper = mount(<ArticleList articles={articles} />)
+    wrapper.find('.article').map((result, article, index) => {
+      wrapper.find(`.open-article-${index}`).simulate('click')
+      return result && wrapper.find(`.text-${index}`).length === 1
+    }, true)
+    expect(result).toBe(true)
+  })
 })

@@ -24,11 +24,11 @@ class Article extends PureComponent {
   }
 
   getBody() {
-    const { article, isOpen } = this.props
+    const { article, isOpen, index } = this.props
     if (!isOpen) return null
 
     return (
-      <section>
+      <section className={`text-${index}`}>
         {article.text}
         <CommentList comments={article.comments} />
       </section>
