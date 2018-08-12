@@ -30,11 +30,14 @@ describe('ArticleList', function() {
     )
   })
 
-  it('should open all article', function() {
+  it('should open/close all article', function() {
     const wrapper = mount(<ArticleList articles={articles} />)
-    wrapper.find('.article').map((result, article, index) => {
+    wrapper.find('.article').reduce((result, article, index) => {
       wrapper.find(`.open-article-${index}`).simulate('click')
-      return result && wrapper.find(`.text-${index}`).length === 1
+      result = wrapper.find(`.text-${index}`).length === 1 && result
+      wrapper.find(`.open-article-${index}`).simulate('click')
+      result = wrapper.find(`.text-${index}`).length === 1 && result
+      return result
     }, true)
     expect(result).toBe(true)
   })
