@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import CommentList from '../comment-list/index'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './article.css'
+import PropTypes from 'prop-types'
 
 class Article extends PureComponent {
   render() {
@@ -36,6 +37,12 @@ class Article extends PureComponent {
   }
 
   toggleOpen = () => this.props.toggleOpen(this.props.article.id)
+}
+
+Article.propTypes = {
+  article: PropTypes.object.isRequired,
+  isOpen: PropTypes.bool,
+  index: PropTypes.number
 }
 
 export default Article

@@ -1,6 +1,7 @@
 import React from 'react'
 import Article from '../article'
 import accordion from '../../decorators/accordion'
+import PropTypes from 'prop-types'
 
 const ArticleList = (props) => {
   props.fetchData && props.fetchData()
@@ -17,6 +18,14 @@ const ArticleList = (props) => {
   ))
 
   return <ul>{articleElements}</ul>
+}
+
+ArticleList.defaultProps = {
+  articles: []
+}
+
+ArticleList.propTypes = {
+  articles: PropTypes.array.isRequired
 }
 
 export default accordion(ArticleList)
