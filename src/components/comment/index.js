@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 function Comment({ comment }) {
   return (
-    <div data-automation-id="comment">
+    <div className={'comment'}>
       {comment.text} <b>by {comment.user}</b>
     </div>
   )

@@ -11,7 +11,7 @@ class CommentList extends Component {
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
       <div>
-        <button data-automation-id="open-comments" onClick={toggleOpen}>
+        <button className={'open-comments'} onClick={toggleOpen}>
           {text}
         </button>
         <CSSTransitionGroup
