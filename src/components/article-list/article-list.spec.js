@@ -19,7 +19,7 @@ describe('ArticleList', function() {
       .find('.open-article')
       .at(0)
       .simulate('click')
-
+    console.log('Some info')
     setTimeout(() => {
       try {
         expect(
