@@ -37,7 +37,7 @@ describe('ArticleList', function() {
       wrapper.find(`.open-article-${index}`).simulate('click')
       result = wrapper.find(`.text-${index}`).length === 1 && result
       wrapper.find(`.open-article-${index}`).simulate('click')
-      result = wrapper.find(`.text-${index}`).length === 1 && result
+      result = wrapper.find(`.text-${index}`).length === 0 && result
       return result
     }, true)
     expect(result).toBe(true)
