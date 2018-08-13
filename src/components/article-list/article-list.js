@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Article from '../article'
 import accordion from '../../decorators/accordion'
 import PropTypes from 'prop-types'
@@ -24,4 +25,6 @@ ArticleList.propTypes = {
   fetchData: PropTypes.func
 }
 
-export default accordion(ArticleList)
+export default connect((state) => ({
+  articles: state.articles
+}))(accordion(ArticleList))

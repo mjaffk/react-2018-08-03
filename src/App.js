@@ -8,14 +8,13 @@ import store from './store'
 
 class App extends Component {
   render() {
-    const { articles } = this.props
     return (
       <Provider store={store}>
         <div>
           <UserForm />
           <Counter />
-          <Filters articles={articles} />
-          <ArticleList articles={articles} />
+          <Filters articles={[]} />
+          <ArticleList />
         </div>
       </Provider>
     )

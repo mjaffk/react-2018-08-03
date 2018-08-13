@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import CommentList from '../comment-list'
+import { deleteArticle } from '../../action-creators'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './article.css'
 
@@ -11,6 +13,9 @@ class Article extends PureComponent {
         <h2>{article.title}</h2>
         <button className={'open-article'} onClick={this.toggleOpen}>
           {isOpen ? 'close' : 'open'}
+        </button>
+        <button className={'delete-article'} onClick={this.deleteArticle}>
+          Delete
         </button>
         <ReactCSSTransitionGroup
           transitionName="article"
@@ -36,6 +41,12 @@ class Article extends PureComponent {
   }
 
   toggleOpen = () => this.props.toggleOpen(this.props.article.id)
+  deleteArticle = () => this.props.deleteArticle(this.props.article.id)
 }
 
-export default Article
+export default connect(
+  null,
+  (dispatch) => ({
+    deleteArticle: (id) => dispatch(deleteArticle(id))
+  })
+)(Article)
