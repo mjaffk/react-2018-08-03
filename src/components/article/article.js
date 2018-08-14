@@ -1,21 +1,26 @@
 import React, { PureComponent } from 'react'
-import CommentList from './comment-list'
+import { connect } from 'react-redux'
+import CommentList from '../comment-list'
+import { deleteArticle, count } from '../../action-creators'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './article.css'
 
 class Article extends PureComponent {
   render() {
-    const { article, isOpen, index } = this.props
+    const { article, isOpen } = this.props
     return (
       <div className={'article'}>
         <h2>{article.title}</h2>
-        <button className={`open-article-${index}`} onClick={this.toggleOpen}>
+        <button className={'open-article'} onClick={this.toggleOpen}>
           {isOpen ? 'close' : 'open'}
         </button>
+        <button className={'delete-article'} onClick={this.deleteArticle}>
+          Delete
+        </button>
         <ReactCSSTransitionGroup
-          transitionName="example"
-          transitionEnterTimeout={5000}
-          transitionLeaveTimeout={5000}
+          transitionName="article"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={300}
         >
           {this.getBody()}
         </ReactCSSTransitionGroup>
@@ -36,6 +41,12 @@ class Article extends PureComponent {
   }
 
   toggleOpen = () => this.props.toggleOpen(this.props.article.id)
+  deleteArticle = () => this.props.deleteArticle(this.props.article.id)
 }
 
-export default Article
+export default connect(
+  null,
+  (dispatch) => ({
+    deleteArticle: (id) => dispatch(deleteArticle(id))
+  })
+)(Article)
