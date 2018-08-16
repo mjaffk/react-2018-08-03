@@ -3,7 +3,7 @@ import DayPicker, { DateUtils } from 'react-day-picker'
 import 'react-day-picker/lib/style.css'
 import connect from 'react-redux/es/connect/connect'
 import { selectedDate } from '../../action-creators'
-import DateRangeOutput from '../filters/date-range-output'
+import DateRangeOutput from './date-output'
 
 class DateRange extends Component {
   render() {
