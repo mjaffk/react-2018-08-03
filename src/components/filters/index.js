@@ -17,6 +17,6 @@ class Filters extends Component {
   }
 }
 
-export default connect((state) => ({ articles: state.articles }))(
+export default connect((state) => ({ articles: state.constArticles }))(
   accordion(Filters)
 )

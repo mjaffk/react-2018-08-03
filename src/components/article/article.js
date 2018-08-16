@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import CommentList from '../comment-list'
-import { deleteArticle, count } from '../../action-creators'
+import { deleteArticle } from '../../action-creators'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './article.css'
+import moment from 'moment'
 
 class Article extends PureComponent {
   render() {
@@ -11,6 +12,7 @@ class Article extends PureComponent {
     return (
       <div className={'article'}>
         <h2>{article.title}</h2>
+        <div>published {moment(article.date).format('LL')}</div>
         <button className={'open-article'} onClick={this.toggleOpen}>
           {isOpen ? 'close' : 'open'}
         </button>
