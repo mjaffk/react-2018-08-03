@@ -37,7 +37,7 @@ export const createCommentSelector = () => {
     console.log('--- connect Comment')
 
     return {
-      commentProp: comments.find((comment) => comment.id === id)
+      commentProp: comments[id]
     }
   })
 }
