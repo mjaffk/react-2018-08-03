@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import CommentList from '../comment-list'
-import { deleteArticle, count } from '../../action-creators'
+import { deleteArticle } from '../../action-creators'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './article.css'
 
