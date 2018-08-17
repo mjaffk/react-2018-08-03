@@ -4,6 +4,7 @@ import { count } from '../action-creators'
 
 class Counter extends React.PureComponent {
   render() {
+    console.log('render Counter')
     return (
       <React.Fragment>
         <h1>{this.props.count}</h1>
