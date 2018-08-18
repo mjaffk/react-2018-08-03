@@ -1,9 +1,8 @@
 import {
   INCREASE,
   DELETE_ARTICLE,
-  SELECT_ARTICLES,
-  SELECT_DATES,
-  SELECT_ARTICLES_BY_DATES
+  CHANGE_DATE_RANGE,
+  CHANGE_SELECTION
 } from '../action-types'
 
 export const count = () => ({
@@ -17,24 +16,15 @@ export const deleteArticle = (id) => ({
   }
 })
 
-export const selectArticles = (selected) => ({
-  type: SELECT_ARTICLES,
-  payload: {
-    selected
+export function changeDateRange(dateRange) {
+  return {
+    type: CHANGE_DATE_RANGE,
+    payload: { dateRange }
   }
-})
-
-export const selectedDate = (day) => ({
-  type: SELECT_DATES,
-  payload: {
-    day
+}
+export function changeSelection(selected) {
+  return {
+    type: CHANGE_SELECTION,
+    payload: { selected }
   }
-})
-
-export const selectArticlesByDate = (from, to) => ({
-  type: SELECT_ARTICLES_BY_DATES,
-  payload: {
-    from,
-    to
-  }
-})
+}
