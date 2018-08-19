@@ -6,7 +6,7 @@ import { changeSelection } from '../../action-creators'
 
 class SelectFilter extends Component {
   static propTypes = {
-    articles: PropTypes.array.isRequired,
+    articles: PropTypes.object.isRequired,
     selected: PropTypes.array,
     changeSelection: PropTypes.func
   }
@@ -27,10 +27,19 @@ class SelectFilter extends Component {
   }
 
   get options() {
-    return this.props.articles.map((article) => ({
-      label: article.title,
-      value: article.id
-    }))
+    let options = []
+
+    for (let articleId in this.props.articles) {
+      options = [
+        ...options,
+        {
+          label: this.props.articles[articleId].title,
+          value: articleId
+        }
+      ]
+    }
+
+    return options
   }
 }
 

@@ -10,16 +10,20 @@ const ArticleList = (props) => {
 
   console.log('render ArticleList')
 
-  const articleElements = props.articles.map((article, index) => (
-    <li key={article.id} className={'article-container'}>
-      <Article
-        article={article}
-        isOpen={article.id === props.openItemId}
-        toggleOpen={props.toggleOpenItem}
-        index={index}
-      />
-    </li>
-  ))
+  let articleElements = []
+
+  for (let articleId in props.articles) {
+    articleElements = [
+      ...articleElements,
+      <li key={articleId} className={'article-container'}>
+        <Article
+          article={props.articles[articleId]}
+          isOpen={articleId === props.openItemId}
+          toggleOpen={props.toggleOpenItem}
+        />
+      </li>
+    ]
+  }
 
   return <ul>{articleElements}</ul>
 }

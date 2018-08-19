@@ -15,14 +15,22 @@ export const filteredArticlesSelector = createSelector(
       dateRange: { from, to }
     } = filters
 
-    const filtratedArticles = articles.filter((article) => {
-      const published = Date.parse(article.date)
-      return (
+    let filtratedArticles = {}
+
+    for (let articleId in articles) {
+      const published = Date.parse(articles[articleId].date)
+
+      if (
         (!selected.length ||
-          selected.find((selected) => selected.value === article.id)) &&
+          selected.find((selected) => selected.value === articleId)) &&
         (!from || !to || (published > from && published < to))
-      )
-    })
+      ) {
+        filtratedArticles = {
+          ...filtratedArticles,
+          [articleId]: articles[articleId]
+        }
+      }
+    }
 
     return {
       articles: filtratedArticles

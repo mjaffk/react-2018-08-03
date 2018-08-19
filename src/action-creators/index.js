@@ -2,7 +2,8 @@ import {
   INCREASE,
   DELETE_ARTICLE,
   CHANGE_DATE_RANGE,
-  CHANGE_SELECTION
+  CHANGE_SELECTION,
+  ADD_COMMENT
 } from '../action-types'
 
 export const count = () => ({
@@ -22,9 +23,17 @@ export function changeDateRange(dateRange) {
     payload: { dateRange }
   }
 }
+
 export function changeSelection(selected) {
   return {
     type: CHANGE_SELECTION,
     payload: { selected }
+  }
+}
+
+export function addNewComment(user, text, articleId) {
+  return {
+    type: ADD_COMMENT,
+    payload: { user, text, articleId }
   }
 }

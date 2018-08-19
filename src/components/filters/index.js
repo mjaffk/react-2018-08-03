@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import DateRange from './date-range'
 import SelectFilter from './select'
-import { connect } from 'react-redux'
-import accordion from '../../decorators/accordion'
 
 class Filters extends Component {
   render() {
@@ -15,6 +13,4 @@ class Filters extends Component {
   }
 }
 
-export default connect((state) => ({ articles: state.constArticles }))(
-  accordion(Filters)
-)
+export default Filters

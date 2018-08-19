@@ -1,0 +1,37 @@
+.add-comment {
+    display: flex;
+    border: 1px solid black;
+    margin: 5px 5px 5px 0;
+    width: 500px;
+    flex-direction: column;
+    padding: 10px 10px 0;
+}
+
+.add-comment div {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.add-comment .user-name,
+.add-comment .text {
+    flex-direction: column;
+}
+
+.add-comment .input {
+    margin-top: 5px;
+    border: 1px solid gray;
+}
+
+.add-comment .text .input {
+    resize: none;
+    height: 50px;
+}
+
+.add-comment .user-name .input {
+    margin-right: auto;
+}
+
+
+.add-comment .buttons {
+    justify-content: space-between;
+}
