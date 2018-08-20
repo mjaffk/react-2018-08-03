@@ -33,7 +33,7 @@ class CommentList extends Component {
     } = this.props
 
     if (!isOpen) return null
-
+    console.log('comments', comments)
     const body = comments.length ? (
       <ul>
         {comments.map((id) => (

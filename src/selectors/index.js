@@ -6,7 +6,7 @@ const idSelector = (_, props) => props.id
 export const articlesMapSelector = (state) => state.articles
 export const articleListSelector = createSelector(
   articlesMapSelector,
-  (articlesMap) => Object.values(articlesMap)
+  (articlesMap) => articlesMap.valueSeq().toArray()
 )
 export const filtersSelectionSelector = createSelector(
   filtersSelector,
@@ -42,10 +42,10 @@ export const createCommentSelector = () => {
   console.log('--- connect Comment')
 
   return createSelector(commentsSelector, idSelector, (comments, id) => {
-    console.log('--- connect Comment')
+    console.log('--- connect Comment', comments.get(id))
 
     return {
-      commentProp: comments[id]
+      commentProp: comments.get(id)
     }
   })
 }

@@ -7,13 +7,11 @@ export default (state = arrToMap(normalizedComments), action) => {
 
   switch (type) {
     case ADD_COMMENT:
-      return {
-        ...state,
-        [randomId]: {
-          ...payload.comment,
-          id: randomId
-        }
-      }
+      console.log('REDUCER COMMENT', payload)
+      return state.set(randomId, {
+        ...payload.comment,
+        id: randomId
+      })
 
     default:
       return state
