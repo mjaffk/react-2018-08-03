@@ -1,12 +1,20 @@
 import { createSelector } from 'reselect'
 
-const articlesSelector = (state) => state.articles
 const filtersSelector = (state) => state.filters
 const commentsSelector = (state) => state.comments
 const idSelector = (_, props) => props.id
+export const articlesMapSelector = (state) => state.articles
+export const articleListSelector = createSelector(
+  articlesMapSelector,
+  (articlesMap) => Object.values(articlesMap)
+)
+export const filtersSelectionSelector = createSelector(
+  filtersSelector,
+  (filters) => filters.selected
+)
 
 export const filteredArticlesSelector = createSelector(
-  articlesSelector,
+  articleListSelector,
   filtersSelector,
   (articles, filters) => {
     console.log('selector filteredArticlesSelector')
