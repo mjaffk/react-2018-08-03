@@ -3,32 +3,53 @@ import { connect } from 'react-redux'
 import Article from '../article'
 import accordion from '../../decorators/accordion'
 import PropTypes from 'prop-types'
-import { filteredArticlesSelector } from '../../selectors'
+import {
+  filteredArticlesSelector,
+  loadingArticleSelector
+} from '../../selectors'
+import { loadAllArticles } from '../../action-creators'
+import Loader from '../common/loader'
 
-const ArticleList = (props) => {
-  props.fetchData && props.fetchData()
+class ArticleList extends React.PureComponent {
+  constructor(props) {
+    super(props)
+    props.fetchData && props.fetchData()
+  }
 
-  console.log('render ArticleList')
+  render() {
+    const {
+      articles: { articles, loading },
+      openItemId,
+      toggleOpenItem
+    } = this.props
 
-  const articleElements = props.articles.map((article, index) => (
-    <li key={article.id} className={'article-container'}>
-      <Article
-        article={article}
-        isOpen={article.id === props.openItemId}
-        toggleOpen={props.toggleOpenItem}
-        index={index}
-      />
-    </li>
-  ))
+    if (loading) return <Loader />
 
-  return <ul>{articleElements}</ul>
+    const articleElements = articles.map((article, index) => (
+      <li key={article.id} className={'article-container'}>
+        <Article
+          article={article}
+          isOpen={article.id === openItemId}
+          toggleOpen={toggleOpenItem}
+          index={index}
+        />
+      </li>
+    ))
+
+    return <ul>{articleElements}</ul>
+  }
 }
 
 ArticleList.propTypes = {
   fetchData: PropTypes.func
 }
 
-export default connect((state) => {
-  console.log('connect ArticleList')
-  return filteredArticlesSelector(state)
-})(accordion(ArticleList))
+export default connect(
+  (state) => ({
+    articles: filteredArticlesSelector(state),
+    loading: loadingArticleSelector(state)
+  }),
+  {
+    fetchData: loadAllArticles
+  }
+)(accordion(ArticleList))

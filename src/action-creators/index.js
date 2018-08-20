@@ -3,7 +3,8 @@ import {
   DELETE_ARTICLE,
   CHANGE_DATE_RANGE,
   CHANGE_SELECTION,
-  ADD_COMMENT
+  ADD_COMMENT,
+  LOAD_ALL_ARTICLES
 } from '../action-types'
 
 export const count = () => ({
@@ -35,5 +36,12 @@ export function addComment(comment, articleId) {
     type: ADD_COMMENT,
     payload: { comment, articleId },
     generateId: true
+  }
+}
+
+export function loadAllArticles() {
+  return {
+    type: LOAD_ALL_ARTICLES,
+    callAPI: '/api/article'
   }
 }
