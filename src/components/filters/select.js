@@ -3,6 +3,7 @@ import Select from 'react-select'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { changeSelection } from '../../action-creators'
+import { articleListSelector, filtersSelectionSelector } from '../../selectors'
 
 class SelectFilter extends Component {
   static propTypes = {
@@ -36,8 +37,8 @@ class SelectFilter extends Component {
 
 export default connect(
   (state) => ({
-    selected: state.filters.selected,
-    articles: state.articles
+    selected: filtersSelectionSelector(state),
+    articles: articleListSelector(state)
   }),
   { changeSelection }
 )(SelectFilter)

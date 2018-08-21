@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "moment": "^2.22.2",
+    "immutable": "^3.8.2",
     "react": "^16.4.2",
     "react-addons-css-transition-group": "^15.6.2",
     "react-day-picker": "^7.1.10",
@@ -14,8 +14,10 @@
     "redux": "^4.0.0",
     "reselect": "^3.0.1"
   },
+  "proxy": "http://localhost:3001/",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"react-scripts start\" \"npm run api\"",
+    "api": "node simple_api/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
@@ -27,6 +29,7 @@
     }
   },
   "devDependencies": {
+    "concurrently": "^3.5.1",
     "enzyme": "^3.4.1",
     "enzyme-adapter-react-16": "^1.2.0",
     "husky": "^1.0.0-rc.13",

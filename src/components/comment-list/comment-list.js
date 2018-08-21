@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import Comment from './comment'
+import CommentForm from '../comment-form'
 import toggleOpen from '../../decorators/toggleOpen'
 import './comment-list.css'
 
@@ -26,9 +27,13 @@ class CommentList extends Component {
   }
 
   getBody() {
-    const { comments, isOpen } = this.props
-    if (!isOpen) return null
+    const {
+      article: { comments = [], id },
+      isOpen
+    } = this.props
 
+    if (!isOpen) return null
+    console.log('comments', comments)
     const body = comments.length ? (
       <ul>
         {comments.map((id) => (
@@ -41,16 +46,21 @@ class CommentList extends Component {
       <h3>No comments yet</h3>
     )
 
-    return <div>{body}</div>
+    return (
+      <div>
+        {body}
+        <CommentForm articleId={id} />
+      </div>
+    )
   }
 }
 
 CommentList.defaultProps = {
-  comments: []
+  article: {}
 }
 
 CommentList.propTypes = {
-  comments: PropTypes.array.isRequired,
+  article: PropTypes.object.isRequired,
   isOpen: PropTypes.bool,
   toggleOpen: PropTypes.func
 }
