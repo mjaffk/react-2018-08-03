@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
 import CommentList from '../comment-list'
-import { deleteArticle } from '../../action-creators'
+import { deleteArticle, loadArticleText } from '../../action-creators'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import './article.css'
-import moment from 'moment'
+import Loader from '../common/loader'
 
 class Article extends PureComponent {
   render() {
@@ -12,7 +12,6 @@ class Article extends PureComponent {
     return (
       <div className={'article'}>
         <h2>{article.title}</h2>
-        <div>published {moment(article.date).format('LL')}</div>
         <button className={'open-article'} onClick={this.toggleOpen}>
           {isOpen ? 'close' : 'open'}
         </button>
@@ -34,6 +33,13 @@ class Article extends PureComponent {
     const { article, isOpen } = this.props
     if (!isOpen) return null
 
+    if (article.loading) return <Loader />
+
+    if (!article.loaded) {
+      this.props.fetchData(article.id)
+      return null
+    }
+
     return (
       <section>
         {article.text}
@@ -49,6 +55,7 @@ class Article extends PureComponent {
 export default connect(
   null,
   (dispatch) => ({
-    deleteArticle: (id) => dispatch(deleteArticle(id))
+    deleteArticle: (id) => dispatch(deleteArticle(id)),
+    fetchData: (id) => dispatch(loadArticleText(id))
   })
 )(Article)

@@ -1,9 +1,9 @@
-import { START, SUCCES, FAIL } from '../action-types'
+import { START, SUCCESS, FAIL } from '../action-types'
 
 export default (store) => (next) => (action) => {
   const { callAPI, type, ...rest } = action
 
-  if (!callAPI) return next(rest)
+  if (!callAPI) return next(action)
 
   next({
     type: type + START,
@@ -14,13 +14,20 @@ export default (store) => (next) => (action) => {
   setTimeout(() => {
     fetch(callAPI)
       .then((res) => res.json())
-      .then((responce) =>
-        next({
+      .then((response) => {
+        if (response.error)
+          return next({
+            ...rest,
+            type: type + FAIL,
+            error: response.error
+          })
+
+        return next({
           ...rest,
-          type: type + SUCCES,
-          responce
+          type: type + SUCCESS,
+          response
         })
-      )
+      })
       .catch((error) =>
         next({
           ...rest,
