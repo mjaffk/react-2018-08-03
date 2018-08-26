@@ -1,8 +1,6 @@
 import { createSelector } from 'reselect'
 
 const filtersSelector = (state) => state.filters
-const commentsSelector = (state) => state.comments
-const idSelector = (_, props) => props.id
 export const articlesMapSelector = (state) => state.articles.entities
 export const articleListSelector = createSelector(
   articlesMapSelector,
@@ -17,7 +15,6 @@ export const filteredArticlesSelector = createSelector(
   articleListSelector,
   filtersSelector,
   (articles, filters) => {
-    console.log('selector filteredArticlesSelector')
     const {
       selected,
       dateRange: { from, to }
@@ -37,17 +34,5 @@ export const filteredArticlesSelector = createSelector(
     }
   }
 )
-
-export const createCommentSelector = () => {
-  console.log('--- connect Comment')
-
-  return createSelector(commentsSelector, idSelector, (comments, id) => {
-    console.log('--- connect Comment', comments.get(id))
-
-    return {
-      commentProp: comments.get(id)
-    }
-  })
-}
 
 export const loadingArticleSelector = (state) => state.articles.loading

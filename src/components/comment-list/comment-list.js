@@ -5,6 +5,9 @@ import Comment from './comment'
 import CommentForm from '../comment-form'
 import toggleOpen from '../../decorators/toggleOpen'
 import './comment-list.css'
+import { loadArticleComments } from '../../action-creators'
+import { connect } from 'react-redux'
+import Loader from '../common/loader'
 
 class CommentList extends Component {
   render() {
@@ -27,29 +30,46 @@ class CommentList extends Component {
   }
 
   getBody() {
-    const {
-      article: { comments = [], id },
-      isOpen
-    } = this.props
+    const { commentsIdList, articleId, isOpen, comments } = this.props
+
+    const commentForm = <CommentForm articleId={articleId} />
 
     if (!isOpen) return null
-    console.log('comments', comments)
-    const body = comments.length ? (
+
+    if (!commentsIdList.length)
+      return (
+        <div>
+          <h3>No comments yet</h3>
+          {commentForm}
+        </div>
+      )
+
+    const isLoaded = commentsIdList.reduce(
+      (isLoaded, id) => isLoaded && !!comments.getIn(['entities', id]),
+      true
+    )
+
+    if (!isLoaded || comments.get('entities').length === 0) {
+      if (!comments.loading) this.props.fetchData(articleId)
+      return <Loader />
+    }
+
+    const commentList = comments.get('entities').toArray()
+
+    const body = (
       <ul>
-        {comments.map((id) => (
-          <li className={'comment-container'} key={id}>
-            <Comment id={id} />
+        {commentList.map((comment) => (
+          <li className={'comment-container'} key={comment.id}>
+            <Comment comment={comment} />
           </li>
         ))}
       </ul>
-    ) : (
-      <h3>No comments yet</h3>
     )
 
     return (
       <div>
         {body}
-        <CommentForm articleId={id} />
+        {commentForm}
       </div>
     )
   }
@@ -65,4 +85,11 @@ CommentList.propTypes = {
   toggleOpen: PropTypes.func
 }
 
-export default toggleOpen(CommentList)
+export default connect(
+  (state) => ({
+    comments: state.comments
+  }),
+  (dispatch) => ({
+    fetchData: (articleId) => dispatch(loadArticleComments(articleId))
+  })
+)(toggleOpen(CommentList))
