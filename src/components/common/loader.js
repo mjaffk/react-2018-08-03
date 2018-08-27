@@ -1,5 +1,9 @@
 import React from 'react'
 
-export default () => {
-  return <h3>Loading...</h3>
+function Loader() {
+  return <h1>Loading...</h1>
 }
+
+Loader.propTypes = {}
+
+export default Loader

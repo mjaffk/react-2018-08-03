@@ -1,38 +1,29 @@
-import React from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { count } from '../action-creators'
+import { increment } from '../action-creators'
 
-class Counter extends React.PureComponent {
+class Counter extends Component {
+  static propTypes = {
+    count: PropTypes.number
+  }
+
   render() {
-    console.log('render Counter')
     return (
-      <React.Fragment>
-        <h1>{this.props.count}</h1>
-        <button onClick={this.handleClick}>Increase</button>
-      </React.Fragment>
+      <div>
+        <h2>{this.props.count}</h2>
+        <button onClick={this.handleIncrement}>Increment</button>
+      </div>
     )
   }
 
-  handleClick = () => {
-    this.props.increase()
+  handleIncrement = () => {
+    this.props.dispatch(increment())
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    count: state.count
-  }
-}
+const mapStateToProps = (state) => ({
+  count: state.counter
+})
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    increase: () => {
-      dispatch(count())
-    }
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Counter)
+export default connect(mapStateToProps)(Counter)

@@ -1,26 +1,13 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Select from 'react-select'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import { changeSelection } from '../../action-creators'
 import { articleListSelector, filtersSelectionSelector } from '../../selectors'
 
 class SelectFilter extends Component {
   static propTypes = {
-    articles: PropTypes.array.isRequired,
-    selected: PropTypes.array,
-    changeSelection: PropTypes.func
-  }
-
-  render() {
-    return (
-      <Select
-        options={this.options}
-        value={this.props.selected}
-        onChange={this.handleChange}
-        isMulti
-      />
-    )
+    articles: PropTypes.array.isRequired
   }
 
   handleChange = (selected) => {
@@ -32,6 +19,17 @@ class SelectFilter extends Component {
       label: article.title,
       value: article.id
     }))
+  }
+
+  render() {
+    return (
+      <Select
+        options={this.options}
+        value={this.props.selected}
+        onChange={this.handleChange}
+        isMulti
+      />
+    )
   }
 }
 
