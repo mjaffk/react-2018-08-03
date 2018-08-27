@@ -5,18 +5,20 @@ import { connect } from 'react-redux'
 import CommentList from '../comment-list'
 import Loader from '../common/loader'
 import { deleteArticle, loadArticle } from '../../action-creators'
+import { articleSelector } from '../../selectors'
 import './article.css'
 
 class Article extends PureComponent {
   static propTypes = {
+    id: PropTypes.string.isRequired,
     article: PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       text: PropTypes.string,
       comments: PropTypes.array
-    }).isRequired,
+    }),
     isOpen: PropTypes.bool,
-    toggleOpen: PropTypes.func.isRequired,
+    toggleOpen: PropTypes.func,
     deleteArticle: PropTypes.func
   }
 
@@ -30,15 +32,15 @@ class Article extends PureComponent {
     })
   }
 
-  componentDidUpdate(oldProps) {
-    const { isOpen, loadArticle, article } = this.props
+  componentDidMount() {
+    const { loadArticle, article, id } = this.props
 
-    if (!oldProps.isOpen && isOpen && !article.text && !article.loading)
-      loadArticle(article.id)
+    if (!article || (!article.text && !article.loading)) loadArticle(id)
   }
 
   render() {
     const { article, isOpen } = this.props
+    if (!article) return null
     return (
       <div>
         <h2>{article.title}</h2>
@@ -82,6 +84,8 @@ class Article extends PureComponent {
 }
 
 export default connect(
-  null,
+  (state, ownProps) => ({
+    article: articleSelector(state, ownProps)
+  }),
   { deleteArticle, loadArticle }
 )(Article)
