@@ -15,7 +15,7 @@ class ArticlesPage extends Component {
 
   getArticle = ({ match }) => {
     console.log('MATCH', match)
-    return <Article id={match.params.id} isOpen />
+    return <Article id={match.params.id} key={match.params.id} isOpen />
   }
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import UserForm from './components/user-form'
 import Filters from './components/filters'
 import Counter from './components/counter'
-import { Route, NavLink } from 'react-router-dom'
+import { Route, NavLink, Switch } from 'react-router-dom'
 import ArticlePage from './components/routes/articles'
 
 class App extends Component {
@@ -27,11 +27,19 @@ class App extends Component {
             </NavLink>
           </li>
         </ul>
-        <Route path="/counter" component={Counter} />
-        <Route path="/filters" component={Filters} />
-        <Route path="/articles" component={ArticlePage} />
+        <Switch>
+          <Route path="/counter" component={Counter} />
+          <Route path="/filters" component={Filters} />
+          <Route path="/articles/new" render={() => <h1>Add new article</h1>} />
+          <Route path="/articles" render={this.getArticles} />
+        </Switch>
       </div>
     )
+  }
+
+  getArticles = ({ match }) => {
+    console.log('App match', match)
+    return <ArticlePage />
   }
 }
 
