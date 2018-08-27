@@ -1,25 +1,36 @@
 import React from 'react'
-import CommentList from './comment-list'
-import Enzyme, { mount } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { mount } from 'enzyme'
+import CommentList from './index'
 import articles from '../../fixtures'
 
-Enzyme.configure({ adapter: new Adapter() })
+describe('CommentList', () => {
+  it('should be closed by default', () => {
+    const wrapper = mount(<CommentList comments={articles[0].comments} />)
 
-const { comments } = articles[0]
+    expect(wrapper.find('.test__comment-list--body').length).toBe(0)
+  })
 
-describe('CommentList', function() {
-  it('should open a comments', function(done) {
-    const wrapper = mount(<CommentList comments={comments} />)
-    wrapper.find('[data-automation-id="open-comments"]').simulate('click')
+  it('should open on click', () => {
+    const wrapper = mount(<CommentList comments={articles[0].comments} />)
 
-    setTimeout(() => {
-      try {
-        expect(wrapper.find('.comment-container').length).toBe(5)
-        done()
-      } catch (e) {
-        done.fail(e)
-      }
-    }, 100)
+    wrapper
+      .find('.test__comment-list--btn')
+      .at(0)
+      .simulate('click')
+
+    expect(wrapper.find('.test__comment-list--item').length).toBe(
+      articles[0].comments.length
+    )
+  })
+
+  it('should display an empty text', () => {
+    const wrapper = mount(<CommentList />)
+
+    wrapper
+      .find('.test__comment-list--btn')
+      .at(0)
+      .simulate('click')
+
+    expect(wrapper.find('.test__comment-list--empty').length).toBe(1)
   })
 })

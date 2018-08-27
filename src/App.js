@@ -1,23 +1,45 @@
 import React, { Component } from 'react'
-import { Provider } from 'react-redux'
-import ArticleList from './components/article-list'
 import UserForm from './components/user-form'
-import Filters from './components/filters/index'
+import Filters from './components/filters'
 import Counter from './components/counter'
-import store from './store'
+import { Route, NavLink, Switch } from 'react-router-dom'
+import ArticlePage from './components/routes/articles'
 
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <div>
-          <UserForm />
-          <Counter />
-          <Filters />
-          <ArticleList />
-        </div>
-      </Provider>
+      <div>
+        <UserForm />
+        <ul>
+          <li>
+            <NavLink to={'/counter'} activeStyle={{ color: 'red' }}>
+              counter
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={'/filters'} activeStyle={{ color: 'red' }}>
+              filters
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to={'/articles'} activeStyle={{ color: 'red' }}>
+              articles
+            </NavLink>
+          </li>
+        </ul>
+        <Switch>
+          <Route path="/counter" component={Counter} />
+          <Route path="/filters" component={Filters} />
+          <Route path="/articles/new" render={() => <h1>Add new article</h1>} />
+          <Route path="/articles" render={this.getArticles} />
+        </Switch>
+      </div>
     )
+  }
+
+  getArticles = ({ match }) => {
+    console.log('App match', match)
+    return <ArticlePage />
   }
 }
 

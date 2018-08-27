@@ -1,3 +1,4 @@
+// HOC === Higher Order Component === decorator
 import React from 'react'
 
 export default (OriginalComponent) =>
@@ -7,9 +8,9 @@ export default (OriginalComponent) =>
     }
 
     toggleOpenItem = (openItemId) =>
-      this.setState({
-        openItemId: openItemId === this.state.openItemId ? null : openItemId
-      })
+      this.setState((state) => ({
+        openItemId: state.openItemId === openItemId ? null : openItemId
+      }))
 
     render() {
       return (

@@ -3,23 +3,14 @@ import { connect } from 'react-redux'
 import { addComment } from '../../action-creators'
 import './style.css'
 
-const limits = {
-  user: {
-    min: 5,
-    max: 50
-  },
-  text: {
-    min: 5,
-    max: 50
-  }
-}
-
 class CommentForm extends Component {
   static propTypes = {}
+
   state = {
     user: '',
     text: ''
   }
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -39,6 +30,7 @@ class CommentForm extends Component {
       </form>
     )
   }
+
   handleSubmit = (ev) => {
     ev.preventDefault()
     this.props.addComment(this.state)
@@ -47,15 +39,30 @@ class CommentForm extends Component {
       text: ''
     })
   }
+
   isValidForm = () => ['user', 'text'].every(this.isValidField)
+
   isValidField = (type) => this.state[type].length >= limits[type].min
+
   getClassName = (type) => (this.isValidField(type) ? '' : 'form-input__error')
+
   handleChange = (type) => (ev) => {
     const { value } = ev.target
     if (value.length > limits[type].max) return
     this.setState({
       [type]: value
     })
+  }
+}
+
+const limits = {
+  user: {
+    min: 10,
+    max: 50
+  },
+  text: {
+    min: 10,
+    max: 50
   }
 }
 
