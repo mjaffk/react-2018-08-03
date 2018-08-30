@@ -7,6 +7,7 @@ import {
   LOAD_ALL_ARTICLES,
   LOAD_ARTICLE,
   LOAD_ARTICLE_COMMENTS,
+  LOAD_ALL_COMMENTS,
   SUCCESS,
   FAIL,
   START
@@ -55,16 +56,6 @@ export function loadAllArticles() {
   }
 }
 
-/*
-export function loadArticle(id) {
-  return {
-    type: LOAD_ARTICLE,
-    payload: { id },
-    callAPI: `/api/article/${id}`
-  }
-}
-*/
-
 export function loadArticle(id) {
   return (dispatch) => {
     dispatch({
@@ -95,5 +86,32 @@ export function loadArticleComments(articleId) {
     type: LOAD_ARTICLE_COMMENTS,
     payload: { articleId },
     callAPI: `/api/comment?article=${articleId}`
+  }
+}
+
+export function loadAllComments(limit, offset) {
+  return (dispatch) => {
+    dispatch({
+      type: LOAD_ALL_COMMENTS + START,
+      payload: { limit, offset }
+    })
+
+    fetchData(
+      `http://localhost:3001/api/comment?limit=${limit}&offset=${offset}`
+    )
+      .then((response) =>
+        dispatch({
+          type: LOAD_ALL_COMMENTS + SUCCESS,
+          payload: { limit, offset },
+          response
+        })
+      )
+      .catch((error) =>
+        dispatch({
+          type: LOAD_ALL_COMMENTS + FAIL,
+          payload: { limit, offset },
+          error
+        })
+      )
   }
 }
