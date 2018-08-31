@@ -5,10 +5,12 @@ import { connect } from 'react-redux'
 import accordion from '../../decorators/accordion'
 
 class Filters extends Component {
+  static propTypes = {}
+
   render() {
     return (
       <div>
-        <SelectFilter />
+        <SelectFilter articles={this.props.articles} />
         <DateRange />
       </div>
     )

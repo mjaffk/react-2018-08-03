@@ -11,7 +11,6 @@ import {
   FAIL,
   START
 } from '../constants'
-import { fetchData } from './service'
 
 export function increment() {
   return {
@@ -72,7 +71,8 @@ export function loadArticle(id) {
       payload: { id }
     })
 
-    fetchData(`article/${id}`)
+    fetch(`/api/article/${id}`)
+      .then((res) => res.json())
       .then((response) =>
         dispatch({
           type: LOAD_ARTICLE + SUCCESS,

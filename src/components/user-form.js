@@ -2,26 +2,26 @@ import React, { Component } from 'react'
 
 class UserForm extends Component {
   state = {
-    username: ''
+    user: ''
   }
-
   render() {
     return (
       <div>
-        User:{' '}
-        <input value={this.state.username} onChange={this.handleUserChange} />
+        Username: <input value={this.state.user} onChange={this.handleChange} />
       </div>
     )
   }
 
-  handleUserChange = (ev) => {
+  handleChange = (ev) => {
+    ev.preventDefault()
+
     if (ev.target.value.length > 10)
       return this.setState({
-        username: ''
+        user: ''
       })
 
     this.setState({
-      username: ev.target.value
+      user: ev.target.value
     })
   }
 }

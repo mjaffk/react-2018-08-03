@@ -12,11 +12,14 @@ const composeEnhancers =
       })
     : compose
 
-const enhancer = composeEnhancers(applyMiddleware(thunk, api, randomId, logger))
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk, randomId, api, logger)
+  // other store enhancers if any
+)
 
 const store = createStore(reducer, enhancer)
 
-//dev only:
+//DEV Only, no need in prod
 window.store = store
 
 export default store

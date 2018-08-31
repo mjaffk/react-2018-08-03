@@ -7,18 +7,18 @@ describe('CommentList', () => {
   it('should be closed by default', () => {
     const wrapper = mount(<CommentList comments={articles[0].comments} />)
 
-    expect(wrapper.find('.test__comment-list--body').length).toBe(0)
+    expect(wrapper.find('.test--comment-list__body').length).toBe(0)
   })
 
   it('should open on click', () => {
     const wrapper = mount(<CommentList comments={articles[0].comments} />)
 
     wrapper
-      .find('.test__comment-list--btn')
+      .find('.test--comment-list__btn')
       .at(0)
       .simulate('click')
 
-    expect(wrapper.find('.test__comment-list--item').length).toBe(
+    expect(wrapper.find('.test--comment-list__item').length).toBe(
       articles[0].comments.length
     )
   })
@@ -27,10 +27,10 @@ describe('CommentList', () => {
     const wrapper = mount(<CommentList />)
 
     wrapper
-      .find('.test__comment-list--btn')
+      .find('.test--comment-list__btn')
       .at(0)
       .simulate('click')
 
-    expect(wrapper.find('.test__comment-list--empty').length).toBe(1)
+    expect(wrapper.find('.test--comment-list__empty').length).toBe(1)
   })
 })

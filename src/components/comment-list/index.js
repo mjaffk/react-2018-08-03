@@ -17,9 +17,19 @@ class CommentList extends Component {
     toggleOpen: PropTypes.func
   }
 
-  componentDidUpdate() {
+  /*
+  static defaultProps = {
+    comments: []
+  }
+*/
+  componentDidUpdate(oldProps) {
     const { isOpen, article, loadArticleComments } = this.props
-    if (isOpen && !article.commentsLoading && !article.commentsLoaded) {
+    if (
+      isOpen &&
+      !oldProps.isOpen &&
+      !article.commentsLoading &&
+      !article.commentsLoaded
+    ) {
       loadArticleComments(article.id)
     }
   }
@@ -29,7 +39,7 @@ class CommentList extends Component {
     const text = isOpen ? 'hide comments' : 'show comments'
     return (
       <div>
-        <button onClick={toggleOpen} className="test__comment-list--btn">
+        <button onClick={toggleOpen} className="test--comment-list__btn">
           {text}
         </button>
         <CSSTransition
@@ -53,22 +63,22 @@ class CommentList extends Component {
     if (!commentsLoaded) return null
 
     return (
-      <div className="test__comment-list--body">
+      <div className="test--comment-list__body">
         {comments.length ? (
-          this.getComments()
+          this.comments
         ) : (
-          <h3 className="test__comment-list--empty">No comments yet</h3>
+          <h3 className="test--comment-list__empty">No comments yet</h3>
         )}
         <CommentForm articleId={id} />
       </div>
     )
   }
 
-  getComments() {
+  get comments() {
     return (
       <ul>
         {this.props.article.comments.map((id) => (
-          <li key={id} className="test__comment-list--item">
+          <li key={id} className="test--comment-list__item">
             <Comment id={id} />
           </li>
         ))}

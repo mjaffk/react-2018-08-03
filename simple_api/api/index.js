@@ -2,6 +2,11 @@ var router = require('express').Router()
 var mocks = require('./mock')
 var assign = require('object-assign')
 
+const reply = (res, body, timeout = 1000, status = 200) =>
+  setTimeout(() => {
+    res.status(status).json(body)
+  }, timeout)
+
 router.get('/article', function(req, res, next) {
   var articles = mocks.articles.map(function(article) {
       return assign({}, article, {
@@ -11,16 +16,16 @@ router.get('/article', function(req, res, next) {
     limit = Number(req.query.limit) || articles.length,
     offset = Number(req.query.offset) || 0
 
-  res.json(articles.slice(offset, limit + offset))
+  reply(res, articles.slice(offset, limit + offset))
 })
 
 router.get('/article/:id', function(req, res, next) {
   var article = mocks.articles.filter(function(article) {
     return article.id == req.params.id
   })[0]
-  if (article) return res.json(article)
+  if (article) return reply(res, article, 950)
 
-  res.status(404).json({ error: 'not found' })
+  reply(res, { error: 'not found' }, 100, 404)
 })
 
 router.post('/article', function(req, res, next) {
@@ -32,7 +37,7 @@ router.post('/article', function(req, res, next) {
     date: new Date()
   }
   mocks.articles.push(article)
-  res.json(article)
+  reply(res, article)
 })
 
 router.get('/comment', function(req, res, next) {
@@ -41,7 +46,8 @@ router.get('/comment', function(req, res, next) {
     var article = mocks.articles.find(function(article) {
       return article.id == aid
     })
-    return res.json(
+    return reply(
+      res,
       (article.comments || []).map(function(id) {
         return mocks.comments.find(function(comment) {
           return comment.id == id
@@ -52,7 +58,7 @@ router.get('/comment', function(req, res, next) {
 
   var limit = Number(req.query.limit) || mocks.comments.length,
     offset = Number(req.query.offset) || 0
-  res.json({
+  reply(res, {
     total: mocks.comments.length,
     records: mocks.comments.slice(offset, limit + offset)
   })
@@ -67,11 +73,11 @@ router.post('/comment', function(req, res, next) {
     article: req.body.article
   }
   mocks.comments.push(comment)
-  res.json(comment)
+  reply(res, comment)
 })
 
 router.post('/report', function(req, res) {
-  res.json({})
+  reply(res, {})
 })
 
 module.exports = router
