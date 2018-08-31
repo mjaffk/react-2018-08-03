@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import CommentList from '../comment-list'
 import Loader from '../common/loader'
 import CSSTransition from 'react-addons-css-transition-group'
-import { deleteArticle, loadArticle } from '../../ac'
+import { deleteArticle, loadArticle } from '../../action-creators'
 import './style.css'
 import { articleSelector } from '../../selectors'
 

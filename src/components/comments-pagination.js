@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import Comment from './comment'
 import Loader from './common/loader'
-import { checkAndLoadCommentsForPage } from '../ac'
+import { checkAndLoadCommentsForPage } from '../action-creators'
 import {
   commentsPageLoadingSelector,
   commentsPageIdsSelector,
