@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import CommentList from '../comment-list'
 import Loader from '../common/loader'
 import CSSTransition from 'react-addons-css-transition-group'
-import { deleteArticle, loadArticle } from '../../action-creators'
+import { deleteArticle, loadArticle } from '../../ac'
 import './style.css'
 import { articleSelector } from '../../selectors'
 
@@ -79,7 +79,7 @@ Article.propTypes = {
   }),
 
   isOpen: PropTypes.bool,
-  toggleOpen: PropTypes.func
+  toggleOpen: PropTypes.func.isRequired
 }
 
 export default connect(
